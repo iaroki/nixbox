@@ -1,7 +1,7 @@
 {
   "variables": {
-    "disk_size": "10240",
-    "memory": "1024"
+    "disk_size": "20480",
+    "memory": "2048"
   },
   "builders": [
     {
