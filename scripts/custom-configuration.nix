@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+    imports = [ ./home-manager.nix ];
+
     time.timeZone = "Europe/Kiev";
 
     environment.systemPackages = with pkgs; [
