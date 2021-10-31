@@ -17,6 +17,20 @@ in
             pkgs.jq
             pkgs.yq
             pkgs.tree
+            pkgs.terraform_0_14
+            pkgs.terraform-docs
+            pkgs.tflint
+            pkgs.terragrunt
+            pkgs.ansible
+            pkgs.ansible-lint
+            pkgs.awscli2
+            pkgs.kubectl
+            pkgs.helm
+            pkgs.go
+            pkgs.python38
+            pkgs.python38Packages.pip
+            pkgs.skopeo
+            pkgs.buildah
         ];
 
         home.sessionVariables = {
