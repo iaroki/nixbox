@@ -74,7 +74,7 @@ in
             userName = "Maxim Sytnyk";
             userEmail = "iaroki@protonmail.com";
             signing = {
-                key = "CA001577A4CCCF05";
+                key = "F3456398396F1A5E";
                 signByDefault = true;
             };
             aliases = {
