@@ -29,6 +29,7 @@ curl -sf "$packer_http/vagrant-network.nix" > /mnt/etc/nixos/vagrant-network.nix
 curl -sf "$packer_http/builders/$PACKER_BUILDER_TYPE.nix" > /mnt/etc/nixos/hardware-builder.nix
 curl -sf "$packer_http/configuration.nix" > /mnt/etc/nixos/configuration.nix
 curl -sf "$packer_http/custom-configuration.nix" > /mnt/etc/nixos/custom-configuration.nix
+curl -sf "$packer_http/home-manager.nix" > /mnt/etc/nixos/home-manager.nix
 
 ### Install ###
 nixos-install
