@@ -129,6 +129,7 @@
         "type": "vagrant",
         "keep_input_artifact": false,
         "only": [
+          "vmware-iso",
           "virtualbox-iso",
           "qemu",
           "hyperv-iso"
