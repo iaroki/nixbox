@@ -111,7 +111,7 @@ in
                     \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
                     \ },
                     \ 'component_function': {
-                    \   'gitbranch': 'gitbranch#name'
+                    \   'gitbranch': 'FugitiveHead'
                     \ },
                     \ }
             '';
