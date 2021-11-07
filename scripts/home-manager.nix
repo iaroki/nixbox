@@ -12,7 +12,6 @@ in
             pkgs.exa
             pkgs.bat
             pkgs.fzf
-            pkgs.ctags
             pkgs.ripgrep
             pkgs.jq
             pkgs.yq
@@ -28,6 +27,8 @@ in
             pkgs.helm
             pkgs.go
             pkgs.gopls
+            pkgs.gotags
+            pkgs.ctags
             pkgs.python38
             pkgs.python38Packages.pip
             pkgs.skopeo
@@ -101,6 +102,8 @@ in
                 let g:indentLine_color_dark = 1
                 let g:indentLine_char = '┊'
                 let g:deoplete#enable_at_startup = 1
+                let g:go_def_mode='gopls'
+                let g:go_info_mode='gopls'
                 let g:better_whitespace_enabled=1
                 let g:strip_whitespace_on_save=1
                 let g:rainbow_active = 1
