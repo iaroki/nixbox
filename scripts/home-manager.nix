@@ -28,6 +28,7 @@ in
             pkgs.go
             pkgs.gopls
             pkgs.gotags
+            pkgs.gocode
             pkgs.ctags
             pkgs.python38
             pkgs.python38Packages.pip
@@ -55,6 +56,7 @@ in
                 vim-nix
                 vim-go
                 deoplete-nvim
+                deoplete-go
                 fzf-vim
                 tagbar
                 nerdtree
@@ -104,6 +106,8 @@ in
                 let g:deoplete#enable_at_startup = 1
                 let g:go_def_mode='gopls'
                 let g:go_info_mode='gopls'
+                set completeopt+=noselect
+                let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
                 let g:better_whitespace_enabled=1
                 let g:strip_whitespace_on_save=1
                 let g:rainbow_active = 1
