@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-    home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-21.05.tar.gz";
+    home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/master.tar.gz";
 in
 {
     imports = [
@@ -18,6 +18,7 @@ in
             pkgs.tree
             pkgs.terraform_0_14
             pkgs.terraform-docs
+            pkgs.terraform-ls
             pkgs.tflint
             pkgs.terragrunt
             pkgs.ansible
@@ -28,10 +29,12 @@ in
             pkgs.go
             pkgs.gopls
             pkgs.gotags
-            pkgs.gocode
             pkgs.ctags
-            pkgs.python38
-            pkgs.python38Packages.pip
+            pkgs.nodejs
+            pkgs.nodePackages.npm
+            pkgs.python39
+            pkgs.python39Packages.pip
+            pkgs.gcc
             pkgs.skopeo
             pkgs.buildah
         ];
@@ -43,39 +46,21 @@ in
             EDITOR = "nvim";
             PAGER = "less -FirSwX";
             MANPAGER = "less -FirSwX";
+            PATH = "~/.npm-packages/bin:$PATH";
+            NODE_PATH = "~/.npm-packages/lib/node_modules";
         };
 
         programs.neovim = {
-	    enable = true;
-	    plugins = with pkgs.vimPlugins; [
-                gruvbox-community
-                lightline-vim
-                vim-terraform
-                vim-terraform-completion
-                vim-hcl
-                vim-nix
-                vim-go
-                deoplete-nvim
-                deoplete-go
-                fzf-vim
-                tagbar
-                nerdtree
-                nerdtree-git-plugin
-                vim-surround
-                vim-commentary
-                vim-fugitive
-                vim-gitgutter
-                rainbow
-                vim-better-whitespace
-                indentLine
-                vim-devicons
+            enable = true;
+            plugins = with pkgs.vimPlugins; [
             ];
             viAlias = true;
             vimAlias = true;
             vimdiffAlias = true;
             extraConfig = ''
+                runtime ./plug.vim
+
                 map <C-n> :NERDTreeToggle<CR>
-                nmap <C-P> :FZF<CR>
                 inoremap kj <esc>
                 cnoremap kj <C-C>
 
@@ -83,7 +68,7 @@ in
                 set background=dark
                 set number
                 syntax on
-                set encoding=utf-8
+                set encoding=UTF-8
                 set laststatus=2
                 set noshowmode
                 set incsearch
@@ -103,24 +88,9 @@ in
 
                 let g:indentLine_color_dark = 1
                 let g:indentLine_char = '┊'
-                let g:deoplete#enable_at_startup = 1
-                let g:go_def_mode='gopls'
-                let g:go_info_mode='gopls'
-                set completeopt+=noselect
-                let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
                 let g:better_whitespace_enabled=1
                 let g:strip_whitespace_on_save=1
                 let g:rainbow_active = 1
-                let g:lightline = {
-                    \ 'colorscheme': 'gruvbox',
-                    \ 'active': {
-                    \   'left': [ [ 'mode', 'paste' ],
-                    \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-                    \ },
-                    \ 'component_function': {
-                    \   'gitbranch': 'FugitiveHead'
-                    \ },
-                    \ }
             '';
         };
 
