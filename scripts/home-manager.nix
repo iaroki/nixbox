@@ -66,6 +66,7 @@ in
 
                 colorscheme gruvbox
                 set background=dark
+                set termguicolors
                 set number
                 syntax on
                 set encoding=UTF-8
