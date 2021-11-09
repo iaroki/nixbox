@@ -46,8 +46,8 @@ in
             EDITOR = "nvim";
             PAGER = "less -FirSwX";
             MANPAGER = "less -FirSwX";
-            PATH = "~/.npm-packages/bin:$PATH";
-            NODE_PATH = "~/.npm-packages/lib/node_modules";
+            PATH = "/home/msytnyk/.npm-packages/bin:$PATH";
+            NODE_PATH = "/home/msytnyk/.npm-packages/lib/node_modules";
         };
 
         programs.neovim = {
@@ -60,7 +60,7 @@ in
             extraConfig = ''
                 runtime ./plug.vim
 
-                map <C-n> :NERDTreeToggle<CR>
+                map <C-n> :NvimTreeToggle<CR>
                 inoremap kj <esc>
                 cnoremap kj <C-C>
 
