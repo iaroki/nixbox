@@ -25,7 +25,7 @@ in
             pkgs.ansible-lint
             pkgs.awscli2
             pkgs.kubectl
-            pkgs.helm
+            pkgs.kubernetes-helm
             pkgs.go
             pkgs.gopls
             pkgs.gotags
