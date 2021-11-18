@@ -1,0 +1,50 @@
+{
+  "variables": {
+    "disk_size": "20480",
+    "memory": "2048",
+    "iso_url": "https://releases.nixos.org/nixos/unstable/nixos-21.11pre331460.931ab058daa/nixos-minimal-21.11pre331460.931ab058daa-x86_64-linux.iso",
+    "iso_checksum": "eb23bcb2fa04585cb8be82d135b9fe757a9fec64dd789e52e2f86e33217a932c"
+  },
+  "builders": [
+    {
+      "boot_wait": "45s",
+      "boot_command": [
+        "echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>",
+        "passwd<enter>",
+        "nixos<enter>",
+        "nixos<enter>"
+      ],
+      "http_directory": "scripts",
+      "shutdown_command": "sudo shutdown -h now",
+      "ssh_port": 22,
+      "ssh_username": "nixos",
+      "ssh_password": "nixos",
+      "headless": true,
+      "type": "vmware-iso",
+      "iso_url": "{{ user `iso_url` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "memory": "{{ user `memory` }}",
+      "disk_size": "{{ user `disk_size` }}",
+      "guest_os_type": "Linux"
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "sudo su -c '{{ .Vars }} {{.Path}}'",
+      "type": "shell",
+      "script": "./scripts/install.sh"
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "vagrant",
+        "keep_input_artifact": false,
+        "only": [
+          "vmware-iso"
+        ],
+        "output": "nixos-unstable-{{.Provider}}-x86_64.box"
+      }
+    ]
+  ]
+}
