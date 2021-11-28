@@ -30,8 +30,6 @@ in
             pkgs.gopls
             pkgs.gotags
             pkgs.ctags
-            pkgs.nodejs
-            pkgs.nodePackages.npm
             pkgs.python39
             pkgs.python39Packages.pip
             pkgs.gcc
@@ -57,42 +55,6 @@ in
             viAlias = true;
             vimAlias = true;
             vimdiffAlias = true;
-            extraConfig = ''
-                runtime ./plug.vim
-
-                map <C-n> :NvimTreeToggle<CR>
-                inoremap kj <esc>
-                cnoremap kj <C-C>
-
-                colorscheme gruvbox
-                set background=dark
-                set termguicolors
-                set number
-                syntax on
-                set encoding=UTF-8
-                set laststatus=2
-                set noshowmode
-                set incsearch
-                set hlsearch
-                set smarttab
-                set expandtab
-                set tabstop=2
-                set shiftwidth=2
-                set softtabstop=2
-                set smartindent
-                set ignorecase
-                set smartcase
-                set scrolloff=8
-                set cursorline
-                set splitbelow
-                set splitright
-
-                let g:indentLine_color_dark = 1
-                let g:indentLine_char = '┊'
-                let g:better_whitespace_enabled=1
-                let g:strip_whitespace_on_save=1
-                let g:rainbow_active = 1
-            '';
         };
 
         programs.bash = {
@@ -113,6 +75,31 @@ in
                 gt = "git tag";
             };
         };
+
+        programs.zsh = {
+            enable = true;
+            autocd = true;
+            enableAutosuggestions = true;
+            enableCompletion = true;
+            shellAliases = {
+              ll = "exa -l";
+              ls = "exa";
+              ga = "git add";
+              gc = "git commit";
+              gco = "git checkout";
+              gcp = "git cherry-pick";
+              gdiff = "git diff";
+              gl = "git prettylog";
+              gp = "git push";
+              gs = "git status";
+              gt = "git tag";
+            };
+            oh-my-zsh = {
+              enable = true;
+              plugins = [];
+              theme = "robbyrussell";
+            };
+          };
 
         programs.gpg.enable = true;
         services.gpg-agent = {

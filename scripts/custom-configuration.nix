@@ -15,6 +15,7 @@
     users.users.msytnyk = {
         isNormalUser = true;
         createHome = true;
+        shell = pkgs.zsh;
         home = "/home/msytnyk";
         extraGroups = [ "wheel" "docker" ];
     };
