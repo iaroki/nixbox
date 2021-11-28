@@ -30,6 +30,8 @@ in
             pkgs.gopls
             pkgs.gotags
             pkgs.ctags
+            pkgs.nodejs
+            pkgs.nodePackages.npm
             pkgs.python39
             pkgs.python39Packages.pip
             pkgs.gcc
