@@ -1,27 +1,11 @@
-BUILDERS ?= "virtualbox-iso"
+all: build
 
-all: update build
+build: build-vmware build-libvirt
 
-update: update_iso update_template
+build-vmware:
+	packer build --only=vmware-iso nixos-unstable.json
 
-# Fetches the latest iso urls
-update_iso: iso_urls_update.rb
-	./iso_urls_update.rb
+build-libvirt:
+	packer build --only=qemu nixos-unstable.json
 
-update_template: nixos-i686.json nixos-x86_64.json
-
-nixos-i686.json: gen_template.rb iso_urls.json
-	./gen_template.rb i686 > $@
-
-nixos-x86_64.json: gen_template.rb iso_urls.json
-	./gen_template.rb x86_64 > $@
-
-build: build-i686 build-x86_64
-
-build-i686: nixos-i686.json
-	packer build --only=${BUILDERS} $<
-
-build-x86_64: nixos-x86_64.json
-	packer build --only=${BUILDERS} $<
-
-.PHONY: all update update_iso update_template build-i686 build-x86_64
+.PHONY: all build-vmware build-libvirt

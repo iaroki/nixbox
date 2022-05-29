@@ -2,23 +2,50 @@
   "variables": {
     "disk_size": "20480",
     "memory": "2048",
-    "iso_url": "https://releases.nixos.org/nixos/unstable/nixos-21.11pre331460.931ab058daa/nixos-minimal-21.11pre331460.931ab058daa-x86_64-linux.iso",
-    "iso_checksum": "eb23bcb2fa04585cb8be82d135b9fe757a9fec64dd789e52e2f86e33217a932c"
+    "iso_url": "https://releases.nixos.org/nixos/unstable/nixos-22.11pre380684.83658b28fe6/nixos-minimal-22.11pre380684.83658b28fe6-x86_64-linux.iso",
+    "iso_checksum": "d584decb10f2f8224fb1277a8860a6e61940764723cf9265b16d0e9bb45d4579"
   },
   "builders": [
     {
       "boot_wait": "45s",
       "boot_command": [
         "echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>",
-        "passwd<enter>",
-        "nixos<enter>",
-        "nixos<enter>"
+        "mkdir -m 0700 .ssh<enter>",
+        "curl $(cat .packer_http)/install_key.pub > .ssh/authorized_keys<enter>",
+        "sudo systemctl start sshd<enter>"
       ],
       "http_directory": "scripts",
       "shutdown_command": "sudo shutdown -h now",
+      "ssh_private_key_file": "./scripts/install_key",
       "ssh_port": 22,
       "ssh_username": "nixos",
-      "ssh_password": "nixos",
+      "headless": true,
+      "type": "qemu",
+      "iso_url": "{{ user `iso_url` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "disk_interface": "virtio-scsi",
+      "disk_size": "{{ user `disk_size` }}",
+      "format": "qcow2",
+      "qemuargs": [
+        [
+          "-m",
+          "{{ user `memory` }}"
+        ]
+      ]
+    },
+    {
+      "boot_wait": "45s",
+      "boot_command": [
+        "echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>",
+        "mkdir -m 0700 .ssh<enter>",
+        "curl $(cat .packer_http)/install_key.pub > .ssh/authorized_keys<enter>",
+        "sudo systemctl start sshd<enter>"
+      ],
+      "http_directory": "scripts",
+      "shutdown_command": "sudo shutdown -h now",
+      "ssh_private_key_file": "./scripts/install_key",
+      "ssh_port": 22,
+      "ssh_username": "nixos",
       "headless": true,
       "type": "vmware-iso",
       "iso_url": "{{ user `iso_url` }}",
@@ -41,8 +68,9 @@
         "type": "vagrant",
         "keep_input_artifact": false,
         "only": [
-          "vmware-iso"
-        ],
+          "vmware-iso",
+          "qemu"
+       ],
         "output": "nixos-unstable-{{.Provider}}-x86_64.box"
       }
     ]
